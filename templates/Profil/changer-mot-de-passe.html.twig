@@ -1,0 +1,67 @@
+{% extends 'base-user.html.twig' %}
+
+{% block stylesheets %}
+{% endblock %}
+
+
+
+{% block title user.username ~ ' | Changer mot de passe compte Orientation Authentique' %}
+
+
+{% block notification %}
+  {% for message in app.flashes('success') %}
+    <div class="uk-container uk-padding-small">
+      <div class="uk-alert-success" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{ message }}</p>
+      </div>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('error') %}
+    <div class="uk-container uk-padding-small">
+      <div class="uk-alert-danger" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{ message }}</p>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+  <div class="container">
+    <h1 class="uk-heading-line uk-heading-primary uk-text-center"><span>Changement de mot de passe</span></h1>
+    <p class="uk-text-center"></p>
+    <h2>Changer mot de passe : <strong>{{ user.username }}</strong><br> </h2>
+    <a href="javascript:history.back()"class="genric-btn success circle arrow small">Retour</a>
+    <div class="row">
+      <div class="col-lg-4">
+        <strong>Dernière modification du mot de passe</strong><br>
+        {% if user.pwdChangedAt is empty %}
+          <p>Jamais modifié</p>
+        {% else %}
+          {{ user.pwdChangedAt|date('d-m-y à H:i') }}
+        {% endif %}
+      </div>
+    </div><br>
+    {{ form_start(form) }}
+        <div class="row">
+          <div class="col-lg-4">
+            {{ form_row(form.password, { 'attr': {'class': 'common-input mt-10'} }) }}
+          </div>
+          <div class="col-lg-4">
+            {{ form_row(form.new_password, { 'attr': {'class': 'common-input mt-10'} }) }}
+          </div>
+          <div class="col-lg-4">
+            {{ form_row(form.new_password1, { 'attr': {'class': 'common-input mt-10'} }) }}
+          </div>
+        </div><br>
+      {{ form_rest(form) }}
+      <button class="genric-btn success circle arrow large">{{ button|default('Enregistrer') }}</button>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}
+
+
+{% block javascripts %}
+{% endblock %}

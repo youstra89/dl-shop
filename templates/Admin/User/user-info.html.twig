@@ -1,0 +1,49 @@
+{% extends 'Admin/User/index.html.twig'%}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+
+{% block title 'Informations utilisateur ' ~ user.username %}
+
+
+
+{% block body %}
+  <h2>Profil de <strong>{{ user.username }}</strong><br> </h2>
+  <a href="javascript:history.back()"class="genric-btn success circle arrow small">Retour</a>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <strong>Nom</strong><br>
+        {{ user.nom }}
+      </div>
+      <div class="col-lg-4">
+        <strong>Prénom</strong><br>
+        {{ user.pnom }}
+      </div>
+      <div class="col-lg-4">
+        <strong>Numéro de téléphone</strong><br>
+        {{ user.phoneNumber }}
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-4">
+        <strong>Sexe</strong><br>
+        {{ user.sexeType }}
+      </div>
+      <div class="col-lg-4">
+        <strong>Email</strong><br>
+        {{ user.email }}
+      </div>
+      <div class="col-lg-4">
+        <strong>Date d'inscription</strong><br>
+        {{ user.createdAt|date('d-m-y à H:i') }}
+      </div>
+    </div><br>
+  </div>
+{% endblock %}
+
+
+{% block javascripts %}
+{% endblock %}

@@ -45,6 +45,7 @@
 									<a href="{{ path('vente') }}">Vente</a>
 									<a href="{{ path('stock.user') }}">Stock</a>
 									{% if is_granted('ROLE_USER') %}
+										<a href="{{ path('profile') }}">Mon compte</a>
 										<a href="{{ path('logout') }}">Déconnexion</a>
 									{% endif %}
 								</nav>

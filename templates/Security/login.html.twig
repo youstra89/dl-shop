@@ -40,41 +40,42 @@
         </div>
       {% endfor %}
     {% endblock %}
-    <div class="banner-area">
-      <div class="container">
-        <h1 class="uk-heading-line uk-heading-primary uk-text-center"><span>Connexion</span></h1>
-        <hr class="uk-divider-icon"><br>
-        <div class="row justify-content-center generic-height align-items-center">
-          <div class="col-lg-8">
-            <div class="banner-content text-center">
-              <form action="{{ path('login') }}" method="post">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <span class="uk-form-icon" uk-icon="icon: user"></span>
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="common-input mt-10"/>
-                  </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center generic-height align-items-center">
+      <div class="col-lg-8">
+        <div class="container">
+          <div class="banner-area">
+          <div class="banner-content text-center">
+            <h1 class="uk-heading-line uk-heading-primary uk-text-center"><span>Connexion</span></h1>
+            <hr class="uk-divider-icon"><br>
+            <form action="{{ path('login') }}" method="post">
+              <div class="row justify-content-center">
+                <div class="col-lg-6">
+                  <span class="uk-form-icon" uk-icon="icon: user"></span>
+                  <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Nom d'utilisateur" class="common-input mt-10"/>
                 </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-                    <input type="password" id="password" name="_password" class="common-input mt-10" />
-                  </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-lg-6">
+                  <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+                  <input type="password" id="password" name="_password" placeholder="Mot de passe" class="common-input mt-10" />
                 </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                    <button type="submit" class="genric-btn primary circle">
-                      <i class="fa fa-sign-in" aria-hidden="true"></i> Connexion
-                    </button>
-                  </div>
+              </div><br>
+              <div class="row justify-content-center">
+                <div class="col-lg-6">
+                  <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                  <button type="submit" class="genric-btn primary circle">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> Connexion
+                  </button><br><br>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
+        </div>
+
         </div>
       </div>
     </div>
-        {#<p><a href="{{ path('resetting') }}">Mot de passe oublié ?</a> </p>#}
-    <br>
   </div>
 {% endblock %}

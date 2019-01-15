@@ -1,0 +1,56 @@
+{% set base = 'base-user.html.twig' %}
+{% if is_granted('ROLE_ADMIN') %}
+  {% set base = 'base.html.twig' %}
+{% endif %}
+{% extends base %}
+
+{% block stylesheets %}
+{% endblock %}
+
+
+
+{% block title user.username ~ ' | Mon compte DL-Shop' %}
+
+
+
+{% block body %}
+    <h1 class="uk-heading-line uk-heading-primary uk-text-center"><span>Mon compte</span></h1>
+    <a href="javascript:history.back()"class="genric-btn success circle arrow small">Retour</a>
+    <p class="uk-text-center"></p>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <strong>Nom</strong><br>
+          {{ user.nom }}
+        </div>
+        <div class="col-lg-4">
+          <strong>Prénom</strong><br>
+          {{ user.pnom }}
+        </div>
+        <div class="col-lg-4">
+          <strong>Numéro de téléphone</strong><br>
+          {{ user.phoneNumber }}
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-lg-4">
+          <strong>Sexe</strong><br>
+          {{ user.sexeType }}
+        </div>
+        <div class="col-lg-4">
+          <strong>Email</strong><br>
+          {{ user.email }}
+        </div>
+        <div class="col-lg-4">
+          <strong>Date d'inscription</strong><br>
+          {{ user.createdAt|date('d-m-y à H:i') }}
+        </div>
+      </div><br>
+      <br>
+      <a class="genric-btn success circle arrow large" href="{{ path('change_pwd') }}">Modifier votre mot de passe</a>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+{% endblock %}
