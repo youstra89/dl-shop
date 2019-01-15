@@ -1,0 +1,81 @@
+{% extends 'base-user.html.twig' %}
+
+{% block title %}Index Vente{% endblock %}
+
+
+{% block notification %}
+  {% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Succès!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('warning') %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Avertissement!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('error') %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Erreur!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+    <section class="project-area">
+      <div class="container">
+        <div class="row ml-3">
+            <a href="{{ path('ventes') }}" class="genric-btn primary e-large">Voir les ventes</a>
+        </div><br><br>
+        <div class="row">
+          {% set i = 0 %}
+          {% for product in products %}
+            {% for stock in stocks %}
+              {% if product.id == stock.product.id %}
+                {% set i = i + 1 %}
+                <div class="col-lg-4">
+                  <div class="card border-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">{{ product.name }}</div>
+                    <div class="card-body text-info">
+                      <h5 class="card-title">{{ product.name }} {{ product.type }}</h5>
+                      <p class="card-text">
+                        {% if stock.quantity == 0 %}
+                          <a class="genric-btn danger small">Stock épuisé</a>
+                        {% else %}
+                          <a href="{{ path('add.product.command', {'id': product.id}) }}" class="genric-btn primary small">Ajouter à la commande ({{ stock.quantity }})</a>
+                        {% endif %}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
+        <div class="row ml-3">
+          {% if app.session.get('aBasket')|length != 0 %}
+            <div class="col-lg-6">
+              <a href="{{ path('save.command') }}" class="genric-btn primary e-large">Enregister la commande [{{ app.session.get('aBasket')|length }} produits]</a>
+            </div>
+            <div class="col-lg-6">
+              <a href="{{ path('reset.command') }}" class="genric-btn danger e-large">Annuler la commande en cours</a>
+            </div>
+          {% endif %}
+        </div>
+        <br>
+      </div>
+    </section>
+{% endblock %}

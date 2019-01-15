@@ -1,0 +1,19 @@
+{# templates/lucky/number.html.twig #}
+{% extends 'Admin/Stock/index.html.twig'%}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+
+{% block title 'Edition du produit ' ~ product.name ~ ' ' ~ product.type  %}
+
+
+{% block body %}
+    <h2>Edition du produit {{ product.name ~ ' ' ~ product.type }}</h2>
+    {{ include('Admin/Stock/_product-form.html.twig') }}
+{% endblock %}
+
+
+{% block javascripts %}
+{% endblock %}

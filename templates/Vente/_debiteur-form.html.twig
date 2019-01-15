@@ -1,0 +1,16 @@
+<section class="contact-area container">
+    {{ form_start(form) }}
+        <div class="row">
+          <div class="col-lg-6">
+            {{ form_row(form.name, { 'attr': {'class' : "common-input mt-10"} }) }}
+          </div>
+          <div class="col-lg-6">
+            {{ form_row(form.phone_number, { 'attr': {'class' : "common-input mt-10"} }) }}
+          </div>
+          <div class="col-lg-12">
+            {{ form_row(form.comment, { 'attr': {'class' : "common-input mt-10"} }) }}
+          </div>
+        </div><br>
+        <button class="genric-btn primary circle">{{ button|default('Enregistrer') }}</button><br><br>
+    {{ form_end(form) }}
+</section>

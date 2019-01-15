@@ -1,0 +1,15 @@
+<section class="contact-area container">
+    {{ form_start(form) }}
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="date">Date de l'achat</label>
+        <input type="date" name="date" class="common-input mt-10">
+      </div>
+      <div class="col-lg-6">
+        {{ form_row(form.comment, { 'attr': {'class' : "common-input mt-10"} }) }}
+      </div>
+    </div><br>
+    {{ form_rest(form) }}
+      <button class="genric-btn primary circle">{{ button|default('Enregistrer') }}</button><br><br>
+    {{ form_end(form) }}
+</section>

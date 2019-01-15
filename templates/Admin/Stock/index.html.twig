@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stock{% endblock %}
+
+
+{% block notification %}
+  {% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Succès!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+    <section class="project-area">
+      <div class="container">
+        <a href="{{ path('category') }}" class="genric-btn primary circle">Gérer les catégories</a>
+        <a href="{{ path('product') }}" class="genric-btn primary circle">Gérer les produits</a><br><br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nom de la catégorie</th>
+              <th scope="col">Quantité en stock</th>
+              <th scope="col">Détails</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set num = 0 %}
+            {% for category in categories %}
+              {% set qte = 0 %}
+              {% set details = '' %}
+              {% for product in products %}
+                {% if category.id == product.category.id  %}
+                  {% for sto in stock %}
+                    {% if product.id == sto.product.id  %}
+                      {% set qte = qte + sto.quantity %}
+                      {% set details = details ~ '' ~ product.name ~ ' ' ~ product.type ~ ': ' ~ sto.quantity ~ ', <br>' %}
+                    {% endif  %}
+                  {% endfor %}
+                  {% set num = num + 1 %}
+                {% endif %}
+              {% endfor %}
+              <tr>
+                <th scope="row">{{ num }}</th>
+                <td>{{ category.name }}</td>
+                <td>{{ qte }}</td>
+                <td>{{ details|raw }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+{% endblock %}

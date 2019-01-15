@@ -1,0 +1,67 @@
+{% extends 'base-user.html.twig' %}
+
+{% block title %}Toutes les ventes{% endblock %}
+
+
+{% block notification %}
+  {% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Succès!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('warning') %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Avertissement!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+    <section class="project-area">
+      <div class="container">
+        <h2>Toutes les ventes</h2>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Date de la vente</th>
+              <th scope="col">Commentaire sur l'achat</th>
+              <th scope="col">Montant</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set num = 0 %}
+            {% for vente in ventes %}
+              {% set num = num + 1 %}
+              <tr>
+                <td>{{ num }}</td>
+                <td>{{ vente.date|date('d-m-Y') }}</td>
+                <td>
+                  {% if vente.comment is empty %}
+                    {{ vente.comment }}
+                  {% endif %}
+                </td>
+                <td>{{ vente.prixTotal|number_format(0, ',', ' ') }}</td>
+                <td>
+                    <a href="{{ path('details.vente', {'id': vente.id}) }}" class="genric-btn primary small">Détails</a>
+                    {% if vente.solde == false %}
+                      <a href="{{ path('autre.reglement', {'id': vente.id}) }}" class="genric-btn success small">Règlement</a>
+                    {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+{% endblock %}

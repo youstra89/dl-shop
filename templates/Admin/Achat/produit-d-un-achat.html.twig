@@ -1,0 +1,49 @@
+{# templates/lucky/number.html.twig #}
+{% extends 'Admin/Achat/index.html.twig'%}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+
+{% block title 'Enregistrement des produits d\'un achat' %}
+
+
+{% block body %}
+    <section class="contact-area container">
+        <h2>Enregistrement des produits d'un achat</h2>
+        <form class="" action="" method="post">
+          {% set i = 0 %}
+          {% for product in products %}
+            {% set i = i + 1 %}
+            <div class="row">
+              <div class="switch-wrap d-flex justify-content-between">
+                <div class="col-lg-6">
+                  {{ product.name }} {{ product.type }}
+                </div>
+                <div class="col-lg-2">
+									<div class="primary-checkbox">
+                    <input type="checkbox" id="ckb{{ i }}" name="product[{{ i }}]" value="{{ product.id }}">
+										<label for="ckb{{ i }}"></label>
+									</div>
+								</div>
+                <div class="col-lg-4">
+                  <input type="number" name="quantity[{{ i }}]" value="">
+                </div><br>
+              </div>
+            </div>
+          {% endfor %}
+          <input type="hidden" name="token" value="{{ csrf_token('achat') }}"/>
+          <button class="genric-btn primary circle">{{ button|default('Enregistrer') }}</button><br><br>
+        </form>
+    </section>
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+  $(document).ready(function(){
+    $()
+  });
+</script>
+{% endblock %}

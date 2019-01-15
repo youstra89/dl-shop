@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title 'Inscription | Orientation Authentique' %}
+
+
+{% block notification %}
+  {% for message in app.flashes('success') %}
+    <div class="uk-container uk-padding-small">
+      <div class="uk-alert-success" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{ message }}</p>
+      </div>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('warning') %}
+    <div class="uk-container uk-padding-small">
+      <div class="uk-alert-warning" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{ message }}</p>
+      </div>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('error') %}
+    <div class="uk-container uk-padding-small">
+      <div class="uk-alert-danger" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{ message }}</p>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+
+{% block body %}
+  <div class="row">
+    <h1 class="uk-heading-line uk-heading-primary uk-text-center"><span>Inscription</span></h1>
+    {% if not form.vars.valid %}
+      <div class="uk-alert-danger" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>Votre formulaire n'est pas valide</p>
+      </div>
+    {% endif %}
+    <hr class="uk-divider-icon"><br>
+    <div class="">
+      <form action="{{ path('registration') }}" method="post">
+          <div class="row">
+            <div class="col-lg-6">
+              {{ form_row(form.nom, { 'attr': {'class': 'common-input mt-10'} }) }}
+            </div>
+            <div class="col-lg-6">
+              {{ form_row(form.pnom, { 'attr': {'class': 'common-input mt-10'} }) }}
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-4">
+              {{ form_row(form.sexe, { 'attr': {'class': 'form-select'} }) }}
+            </div>
+            <div class="col-lg-4">
+              {{ form_row(form.phone_number, { 'attr': {'class': 'common-input mt-10'} }) }}
+            </div>
+            <div class="col-lg-4">
+              {{ form_row(form.email, { 'attr': {'class': 'common-input mt-10'} }) }}
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-4">
+              {{ form_row(form.username, { 'attr': {'class': 'common-input mt-10'} }) }}
+            </div>
+            <div class="col-lg-4">
+              {{ form_row(form.password.first, { 'attr': {'class': 'common-input mt-10'} }) }}
+            </div>
+            <div class="col-lg-4">
+              {{ form_row(form.password.second, { 'attr': {'class': 'common-input mt-10'} }) }}
+            </div>
+          </div><br><br>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}"/>{##}
+        <button type="submit" class="genric-btn primary circle">
+          <i class="fa fa-sign-in" aria-hidden="true"></i> S'inscrire
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

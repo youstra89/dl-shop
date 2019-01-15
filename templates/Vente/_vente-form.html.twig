@@ -1,0 +1,58 @@
+<section class="contact-area container">
+    <form class="ui form" action="" method="post">
+        <div class="row">
+          <div class="col-lg-6">
+            <label for="date">Date de la vente</label>
+            <input type="date" name="date" class="common-input mt-10" value="{{ 'now'|date('Y-m-d') }}">
+          </div>
+          <div class="col-lg-6">
+            <label for="date">Commentaire</label>
+            <input type="text" name="comment" class="common-input mt-10" value="">
+          </div>
+        </div><br>
+        {% set i = 0 %}
+        <table class="table">
+          <thead>
+            <tr>
+              <td>#</td>
+              <td>Produit</td>
+              <td>Quantité</td>
+              <td>Prix Unitaire</td>
+              <td>Sous total</td>
+            </tr>
+          </thead>
+          {% for product in products %}
+            {% set i = i + 1 %}
+              <tbody>
+                <tr>
+                  <td>
+                    {{ i }}
+                  </td>
+                  <td>
+                    {{ product.name }} {{ product.type }}
+                  </td>
+                  <td>
+                    <input type="number" class="quantity" id="quantity[{{ product.id }}]" name="{{ product.id }}" value="1" required>
+                    <input type="hidden" name="quantityH[{{ product.id }}]"  id="quantityH[{{ product.id }}]" value="1">
+                  </td>
+                  <td>
+                    <input type="number" class="price" id="price[{{ product.id }}]" name="{{ product.id }}" value="0" required>
+                    <input type="hidden" name="priceH[{{ product.id }}]" id="priceH[{{ product.id }}]" value="0">
+                  </td>
+                  <td>
+                    <input type="number" class="sousTotal" id="sousTotal[{{ product.id }}]" name="sousTotal[{{ product.id }}]" value="0" readonly>
+                  </td>
+                </tr>
+              </tbody>
+          {% endfor %}
+          <tfoot>
+            <tr>
+              <td colspan="4"><h4>Total de la commande</h4></td>
+              <td><h4><input type="text" id="total" value="0" readonly></h4></td>
+            </tr>
+          </tfoot>
+        </table>
+        <input type="hidden" name="token" value="{{ csrf_token('vente') }}"/>
+        <button class="genric-btn primary circle">{{ button|default('Enregistrer') }}</button><br><br>
+    </form>
+</section>

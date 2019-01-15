@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index Achat{% endblock %}
+
+
+{% block notification %}
+  {% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Succès!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('warning') %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Avertissement!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+    <section class="project-area">
+      <div class="container">
+        <a href="{{ path('add.achat') }}" class="genric-btn primary circle">Enregistrer un achat</a><br><br>
+        <h2>Tous les achats</h2>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Date de l'achat</th>
+              <th scope="col">Commentaire sur l'achat</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set num = 0 %}
+            {% for achat in achats %}
+              {% set num = num + 1 %}
+              <tr>
+                <td class="serial">{{ num }}</td>
+                <td class="country">{{ achat.date|date('d-m-Y') }}</td>
+                <td class="country">{{ achat.comment }}</td>
+                <td class="">
+                    <a href="{{ path('details.achat', {'id': achat.id}) }}" class="genric-btn success circle arrow small">Détails</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="project-area">
+      <div class="container">
+      </div>
+    </section>
+{% endblock %}

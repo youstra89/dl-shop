@@ -1,0 +1,40 @@
+{% extends 'base-user.html.twig' %}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+
+{% block title 'Enregistrement débiteur' %}
+
+
+{% block notification %}
+  {% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Succès!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('warning') %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Avertissement!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+    <h2>Enregistrement d'un débiteur</h2>
+    {{ include('Vente/_debiteur-form.html.twig') }}
+{% endblock %}
+
+
+{% block javascript %}
+{% endblock %}

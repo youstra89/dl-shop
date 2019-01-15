@@ -1,0 +1,12 @@
+<section class="contact-area container">
+    {{ form_start(form) }}
+    <fieldset class="uk-fieldset">
+      <div class="col-lg-6">
+        <!-- <input type="email" name="email" placeholder="Enter email address" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" class="common-input mt-10" required> -->
+        {{ form_row(form.name, { 'attr': {'class' : "common-input mt-10"} }) }}
+      </div>
+    </fieldset><br>
+    {{ form_rest(form) }}
+      <button class="genric-btn primary circle">{{ button|default('Enregistrer') }}</button><br><br>
+    {{ form_end(form) }}
+</section>

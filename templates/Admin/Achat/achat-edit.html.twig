@@ -1,0 +1,19 @@
+{# templates/lucky/number.html.twig #}
+{% extends 'Admin/Stock/index.html.twig'%}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+
+{% block title 'Edition de la catégorie '~ category.name %}
+
+
+{% block body %}
+    <h2>Edition de la catégorie {{ category.name }}</h2>
+    {{ include('Admin/Stock/_category-form.html.twig', {button: 'Editer'}) }}
+{% endblock %}
+
+
+{% block javascripts %}
+{% endblock %}

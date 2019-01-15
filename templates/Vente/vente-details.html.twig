@@ -1,0 +1,98 @@
+{% extends 'base-user.html.twig' %}
+
+{% block title %}Détails achat{% endblock %}
+
+
+{% block notification %}
+  {% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Succès!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('warning') %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Avertissement!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  {% for message in app.flashes('error') %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Erreur!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+
+{% block body %}
+    <section class="project-area">
+      <div class="container">
+        <a href="{{ path('ventes') }}" class="genric-btn success circle arrow small"><span class="lnr lnr-arrow-left"></span>Retour aux ventes</a>
+        <h2>
+          Détails de la vente du <strong>{{ vente.createdAt|date('Y-m-d')}}</strong> à <strong>{{ vente.createdAt|date('H:i')}}</strong>
+        </h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Produits</th>
+              <th scope="col">Quantité</th>
+              <th scope="col">Prix unitaire</th>
+              <th scope="col">Sous total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set i = 0 %}
+            {% for product in vente.commandeProduits %}
+              {% set i = i + 1 %}
+              <tr>
+                <th scope="row">{{ i }}</th>
+                <td>{{ product.product.name }} {{ product.product.type }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.prixUnitaire|number_format(0, ',', ' ') }}</td>
+                <td>{{ product.prixTotal|number_format(0, ',', ' ') }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">Total général</td>
+              <td>{{ vente.prixTotal|number_format(0, ',', ' ') }}</td>
+            </tr>
+          </tfoot>
+        </table><br><br>
+        {% if vente.solde == true %}
+          <a class="genric-btn default-border radius">Soldé</a><br><br>
+        {% else %}
+          {% set montant = 0 %}
+          <h3>Règlements effectués:</h3>
+          <ul class="unordered-list">
+            {% for reglement in reglements %}
+              {% set montant = montant + reglement.montant %}
+  						<li><strong>{{ reglement.montant|number_format(0, ',', ' ') }}</strong> versé le <strong>{{ reglement.date|date('d-m-Y') }}</strong></li>
+            {% endfor %}
+          </ul><br><br>
+          {% set reste = (vente.prixTotal - montant)|number_format(0, ',', ' ') %}
+          <p><strong> Reste à payer</strong> : {{ reste }} F CFA </p><br><br>
+          <a href="{{ path('autre.reglement', {id: vente.id}) }}" class="genric-btn primary circle arrow small">Enregistrer un autre règlement</a><br><br>
+          <p><strong>Nom client :</strong> {{ vente.debiteur.name }} </p>
+          <p><strong>Numéro client :</strong> {{ vente.debiteur.phoneNumber }} </p>
+        {% endif %}
+      </div>
+    </section>
+    <section class="project-area">
+      <div class="container">
+      </div>
+    </section>
+{% endblock %}

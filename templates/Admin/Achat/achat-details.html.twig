@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails achat{% endblock %}
+
+
+{% block body %}
+    <section class="project-area">
+      <div class="container">
+        <a href="{{ path('achat') }}" class="genric-btn success circle arrow small">
+          <span class="lnr lnr-arrow-left"></span>&nbsp;Retour aux achats
+        </a><br><br>
+        <h2>Détails de l'achat du {{ achat.date|date('d-m-Y') }}</h2>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Produits</th>
+              <th scope="col">Quantité</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set i = 0 %}
+            {% for product in achat.achatProduits %}
+              {% set i = i + 1 %}
+              <tr>
+                <th scope="row">{{ i }}</th>
+                <td>{{ product.product.name }} {{ product.product.type }}</td>
+                <td>{{ product.quantity }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="project-area">
+      <div class="container">
+      </div>
+    </section>
+{% endblock %}

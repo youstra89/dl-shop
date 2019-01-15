@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index Stock{% endblock %}
+
+
+{% block notification %}
+  {% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Succès!</h4>
+      {{ message|raw }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+    <section class="project-area">
+      <div class="container">
+        <a href="{{ path('add.category') }}" class="genric-btn primary circle">Ajouter une nouvelle catégorie</a>
+        <div class="progress-table-wrap">
+							<div class="progress-table">
+								<div class="table-head">
+									<div class="serial">#</div>
+									<div class="country">Nom de la catégorie</div>
+                  <div class="visit">Action</div>
+								</div>
+                {% set num = 0 %}
+                {% for category in categories %}
+                  {% set num = num + 1 %}
+                  <div class="table-row">
+                    <div class="serial">{{ num }}</div>
+                    <div class="country">{{ category.name }}</div>
+                    <div class="visit"><a href="{{ path('edit.category', {'id': category.id}) }}" class="genric-btn default-border circle">Editer</a></div>
+                  </div>
+                {% endfor %}
+							</div>
+						</div>
+      </div>
+    </section>
+    <section class="project-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="single-project" style="background: url({{ asset('img/p1.jpg') }});">
+              <div class="overlay overlay-content">
+                <h4>Vector Illustration</h4>
+                <p>LCD screens are uniquely modern in style, and the liquid crystals that make them work have allowed humanity to create slimmer, more portable technology than</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="single-project" style="background: url({{ asset('img/p2.jpg') }});">
+              <div class="overlay overlay-content">
+                <h4>Vector Illustration</h4>
+                <p>LCD screens are uniquely modern in style, and the liquid crystals that make them work have allowed humanity to create slimmer, more portable technology than</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="single-project" style="background: url({{ asset('img/p3.jpg') }});">
+              <div class="overlay overlay-content">
+                <h4>Vector Illustration</h4>
+                <p>LCD screens are uniquely modern in style, and the liquid crystals that make them work have allowed humanity to create slimmer, more portable technology than</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
